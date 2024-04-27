@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -a -p --group-directories-first | sed -z 's/\n/, /g; s/\([^\/]\)$/\1, /g; s/\//\//g; s/,$/\n/'
+ls -ap | awk '{printf "%s%s", $0, (NR==1 || NR==2) ? ", " : (/\/$/ ? ", " : NR==last ? "\n" : ", ")}' | sed 's/,$/\n/'
